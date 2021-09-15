@@ -46,12 +46,10 @@ class OrderedListTest extends \Codeception\Test\Unit
     public function testOffset()
     {
         $list = new OrderedList($this->listToOrder);
-        $this->assertEquals(
-            [13,17,33,37],
-            $list
-                ->first(5)
-                ->offset(1)
-                ->getList()
-        );
+        $list = $list
+            ->first(5)
+            ->offset(1)
+            ->getList();
+        $this->assertEquals([13,17,33,37], $list);
     }
 }
