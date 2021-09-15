@@ -35,7 +35,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Export user names', 'url' => ['import-user-name/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
@@ -56,6 +56,13 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 </header>
+
+<?php foreach( Yii::$app->session->getAllFlashes() as $flash): ?>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <?php echo $flash; ?>
+    </div>
+<?php endforeach;?>
 
 <main role="main" class="flex-shrink-0">
     <div class="container">

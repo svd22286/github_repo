@@ -9,19 +9,18 @@ namespace common\services;
 
 use common\components\GithubAPI;
 use common\components\OrderedList;
+use common\models\UserName;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 class GithubRequestService
 {
-    protected $usersList = ['svd222', 'samdark'];
-
-    public function getFreshRepos()
+    public function getFreshRepos($usersList)
     {
         $repos = [];
         $return = [];
         $gApi = new GithubAPI();
-        foreach ($this->usersList as $user) {
+        foreach ($usersList as $user) {
             $rs = Json::decode($gApi->getUserRepos($user));
             foreach ($rs as $repo) {
                 $updateAt = $repo['updated_at'];

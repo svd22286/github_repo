@@ -7,6 +7,7 @@
  */
 namespace console\controllers;
 
+use common\models\UserName;
 use Yii;
 use common\models\UserRepo;
 use common\services\GithubRequestService;
@@ -17,7 +18,15 @@ class FreshUserRepoController extends Controller
     public function actionRequest()
     {
         $service = new GithubRequestService();
-        $repos = $service->getFreshRepos();
+        $usersList = UserName::find()->all();
+        $usersList = array_map(function($user) {
+            /**
+             * @var UserName $user
+             */
+            return $user->name;
+        }, $usersList);
+
+        $repos = $service->getFreshRepos($usersList);
 
         $repos = array_map(function ($repo) {
             $repo[2] = date('Y-m-d H:i:s', $repo[2]);
